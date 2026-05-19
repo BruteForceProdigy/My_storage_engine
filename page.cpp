@@ -5,16 +5,23 @@
 #include "page.h"
 
 #include <iostream>
-int Page::free_space = 4096;
+int Page::free_space = 20;
 
 Page *Page::instance = nullptr;
 
+Page::Page(int id) {
+    page_id = id;
+}
+
 void Page::insertDataIntoPage(std::string data) {
-    if (canFit(data)) {
+    Page *current = Page::getInstance();
+    if (current->canFit(data)) {
         free_space -= calculateBytes(data);
-        p1 = getInstance();
+        std::cout << " free_space remaing" << free_space << std::endl;
+        current->records.push_back(data);
     } else {
         std::cout << " write data to disk";
+        
     }
 }
 
@@ -29,7 +36,8 @@ bool Page::canFit(std::string data) {
 
 Page *
 Page::getInstance() {
-    if (!p1) {
-        p1 = new Page(1, );
+    if (!instance) {
+        instance = new Page(1);
     }
+    return instance;
 }

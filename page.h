@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <string>
+#include <vector>
 
 
 class Page {
@@ -18,6 +19,8 @@ public:
 private:
     static int free_space;
     static Page *instance;
+    std::vector<std::string> records;
+    int page_id;
 
-    Page(int id, std::string data);
+    Page(int id);
 };
